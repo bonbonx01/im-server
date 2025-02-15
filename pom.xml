@@ -14,6 +14,8 @@
         <module>im-server-infrastructure</module>
         <module>im-server-interface</module>
         <module>im-server-starter</module>
+        <module>im-server-test</module>
+        <module>im-server-spi</module>
     </modules>
 
     <properties>

@@ -6,6 +6,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.txuan.im.server.application.IMNettyServer;
+import io.txuan.im.server.application.netty.tcp.codec.TcpSocketMessageProtocolDecoder;
+import io.txuan.im.server.application.netty.tcp.codec.TcpSocketMessageProtocolEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,8 +45,8 @@ public class TcpSocketServer implements IMNettyServer {
                     protected void initChannel(Channel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         pipeline.addLast(new IdleStateHandler(120, 0, 0, TimeUnit.SECONDS));
-                        pipeline.addLast("encode", null);
-                        pipeline.addLast("decode", null);
+                        pipeline.addLast("encode", new TcpSocketMessageProtocolEncoder());
+                        pipeline.addLast("decode", new TcpSocketMessageProtocolDecoder());
                         pipeline.addLast("handler", null);
                     }
                 }).option(ChannelOption.SO_BACKLOG,5)

@@ -10,6 +10,8 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.txuan.im.server.application.IMNettyServer;
+import io.txuan.im.server.application.netty.ws.codec.WebSocketMessageProtocolDecoder;
+import io.txuan.im.server.application.netty.ws.codec.WebSocketMessageProtocolEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,8 +56,8 @@ public class WebSocketServer implements IMNettyServer {
                         pipeline.addLast("aggregator", new HttpObjectAggregator(65535));
                         pipeline.addLast("http-chunked", new ChunkedWriteHandler());
                         pipeline.addLast(new WebSocketServerProtocolHandler("/im"));
-                        pipeline.addLast("encode",  null);
-                        pipeline.addLast("decode", null);
+                        pipeline.addLast("encode",  new WebSocketMessageProtocolEncoder());
+                        pipeline.addLast("decode", new WebSocketMessageProtocolDecoder());
                         pipeline.addLast("handler", null);
                     }
                 })
