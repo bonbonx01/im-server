@@ -1,0 +1,8 @@
+tcpsocket:
+  enable: false
+  port: 8879
+
+websocket:
+  enable: true
+  port: 8878
+
