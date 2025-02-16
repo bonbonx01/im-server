@@ -6,6 +6,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.txuan.im.server.application.IMNettyServer;
+import io.txuan.im.server.application.netty.handler.IMChannelHandler;
 import io.txuan.im.server.application.netty.tcp.codec.TcpSocketMessageProtocolDecoder;
 import io.txuan.im.server.application.netty.tcp.codec.TcpSocketMessageProtocolEncoder;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class TcpSocketServer implements IMNettyServer {
                         pipeline.addLast(new IdleStateHandler(120, 0, 0, TimeUnit.SECONDS));
                         pipeline.addLast("encode", new TcpSocketMessageProtocolEncoder());
                         pipeline.addLast("decode", new TcpSocketMessageProtocolDecoder());
-                        pipeline.addLast("handler", null);
+                        pipeline.addLast("handler", new IMChannelHandler());
                     }
                 }).option(ChannelOption.SO_BACKLOG,5)
                 .childOption(ChannelOption.SO_KEEPALIVE,true);

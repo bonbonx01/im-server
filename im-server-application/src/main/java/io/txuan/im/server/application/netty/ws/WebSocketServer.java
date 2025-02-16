@@ -10,6 +10,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.txuan.im.server.application.IMNettyServer;
+import io.txuan.im.server.application.netty.handler.IMChannelHandler;
 import io.txuan.im.server.application.netty.ws.codec.WebSocketMessageProtocolDecoder;
 import io.txuan.im.server.application.netty.ws.codec.WebSocketMessageProtocolEncoder;
 import org.slf4j.Logger;
@@ -58,7 +59,7 @@ public class WebSocketServer implements IMNettyServer {
                         pipeline.addLast(new WebSocketServerProtocolHandler("/im"));
                         pipeline.addLast("encode",  new WebSocketMessageProtocolEncoder());
                         pipeline.addLast("decode", new WebSocketMessageProtocolDecoder());
-                        pipeline.addLast("handler", null);
+                        pipeline.addLast("handler", new IMChannelHandler());
                     }
                 })
                 .option(ChannelOption.SO_BACKLOG, 5)
