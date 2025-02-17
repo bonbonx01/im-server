@@ -5,7 +5,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-import io.txuan.im.server.application.IMNettyServer;
+import io.txuan.im.server.application.netty.IMNettyServer;
 import io.txuan.im.server.application.netty.handler.IMChannelHandler;
 import io.txuan.im.server.application.netty.tcp.codec.TcpSocketMessageProtocolDecoder;
 import io.txuan.im.server.application.netty.tcp.codec.TcpSocketMessageProtocolEncoder;

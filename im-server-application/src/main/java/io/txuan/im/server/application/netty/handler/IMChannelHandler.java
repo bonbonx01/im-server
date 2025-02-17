@@ -7,9 +7,12 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.AttributeKey;
 import io.txuan.im.common.cache.distribute.DistributedCacheService;
 import io.txuan.im.common.domain.constants.IMConstants;
+import io.txuan.im.common.domain.enums.IMCmdType;
 import io.txuan.im.common.domain.model.IMSendInfo;
 import io.txuan.im.server.application.netty.cache.UserChannelContextCache;
+import io.txuan.im.server.application.netty.processor.factory.ProcessorFactory;
 import io.txuan.im.server.infrastructure.holder.SpringContextHolder;
+import io.txuan.im.server.application.netty.processor.MessageProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +21,9 @@ import java.util.Map;
 public class IMChannelHandler extends SimpleChannelInboundHandler<IMSendInfo> {
     private final Logger logger = LoggerFactory.getLogger(IMChannelHandler.class);
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, IMSendInfo imSendInfo) throws Exception {
-        // todo 处理登录和心跳消息
+    protected void channelRead0(ChannelHandlerContext ctx, IMSendInfo imSendInfo) throws Exception {
+        MessageProcessor processor = ProcessorFactory.getProcessor(IMCmdType.fromCode(imSendInfo.getCmd()));
+        processor.process(ctx, processor.transForm(imSendInfo.getData()));
     }
 
     @Override

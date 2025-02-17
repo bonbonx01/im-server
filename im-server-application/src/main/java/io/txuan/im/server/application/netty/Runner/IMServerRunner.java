@@ -1,7 +1,7 @@
 package io.txuan.im.server.application.netty.Runner;
 
 import cn.hutool.core.collection.CollectionUtil;
-import io.txuan.im.server.application.IMNettyServer;
+import io.txuan.im.server.application.netty.IMNettyServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

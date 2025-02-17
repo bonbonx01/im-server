@@ -1,4 +1,4 @@
-package io.txuan.im.server.application;
+package io.txuan.im.server.application.netty;
 
 public interface IMNettyServer {
     /**
